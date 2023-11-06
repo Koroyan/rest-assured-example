@@ -7,15 +7,14 @@ import com.koroyan.restassuredexample.pojos.response.FindPersonResult;
 import com.koroyan.restassuredexample.services.RequestService;
 import com.koroyan.restassuredexample.utils.StringRequests;
 import com.koroyan.restassuredexample.utils.XmlUtils;
-import io.restassured.RestAssured;
+import io.restassured.*;
 import org.apache.commons.io.IOUtils;
-
+import static io.restassured.RestAssured.given;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static io.restassured.RestAssured.given;
 
 public class Step {
 
