@@ -134,4 +134,22 @@ public class Step {
                 .extract()
                 .body().xmlPath().getObject("Envelope.Body.GetListByNameResponse.GetListByNameResult", GetListByNameResult.class);
     }
+
+    @Deprecated
+    public GetListByNameResult getListByNameEnvelope(String name) {
+        Envelope listByNameRequestModel = RequestService.getListByNameRequestModel(name);
+        RestAssured.baseURI = EndPoint.BASE_URL.toString();
+        return given()
+                .contentType(ContentType.XML)
+                .header("SOAPAction", SOAPAction.GET_LIST_BY_NAME.toString())
+                .body(listByNameRequestModel)
+                .post(EndPoint.BASE_URL.toString())
+                .then()
+                .log().ifError()
+                .assertThat()
+                .statusCode(200)
+                .extract()
+                .body().xmlPath().getObject("Envelope.Body.GetListByNameResponse.GetListByNameResult", GetListByNameResult.class);
+    }
+
 }

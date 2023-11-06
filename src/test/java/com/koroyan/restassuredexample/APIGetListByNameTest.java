@@ -23,5 +23,8 @@ public class APIGetListByNameTest {
             System.out.println(person.toString());
 
         Assert.assertTrue(getListByNameResult1.equalsTo(getListByNameResult2));
+
+
+//        GetListByNameResult getListByNameResult3 = step.getListByNameEnvelope("Xavier");
     }
 }
