@@ -12,4 +12,16 @@ public class StringRequests {
                 "    </soapenv:Body>\n" +
                 "</soapenv:Envelope>";
     }
+
+    public static String getListByNameRequest(String name){
+        return "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tem=\"http://tempuri.org\">\n" +
+                "   <soapenv:Header/>\n" +
+                "   <soapenv:Body>\n" +
+                "      <tem:GetListByName>\n" +
+                "         <!--Optional:-->\n" +
+                "         <tem:name>" + name + "</tem:name>\n" +
+                "      </tem:GetListByName>\n" +
+                "   </soapenv:Body>\n" +
+                "</soapenv:Envelope>\t";
+    }
 }
