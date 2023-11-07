@@ -1,13 +1,16 @@
 package com.koroyan.restassuredexample.steps;
 
+import com.koroyan.restassuredexample.data.Data;
 import com.koroyan.restassuredexample.enums.EndPoint;
 import com.koroyan.restassuredexample.enums.SOAPAction;
 import com.koroyan.restassuredexample.pojos.request.Envelope;
 import com.koroyan.restassuredexample.pojos.response.FindPersonResult;
+import com.koroyan.restassuredexample.pojos.response.GetListByNameResult;
 import com.koroyan.restassuredexample.services.RequestService;
 import com.koroyan.restassuredexample.utils.StringRequests;
 import com.koroyan.restassuredexample.utils.XmlUtils;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.apache.commons.io.IOUtils;
 
 
@@ -100,5 +103,22 @@ public class Step {
                 .extract()
                 .body().xmlPath().getObject("Envelope.Body.FindPersonResponse.FindPersonResult",
                         FindPersonResult.class);
+    }
+
+    public GetListByNameResult getListByName(String name) {
+        Envelope getListByNameRequestModel = RequestService.getListByNameRequestModel(name);
+        RestAssured.baseURI = EndPoint.BASE_URL.toString();
+        return given()
+                .contentType(ContentType.XML)
+                .header("SOAPAction", SOAPAction.GET_LIST_BY_NAME)
+                .body(getListByNameRequestModel)
+                .when()
+                .post(EndPoint.BASE_URL.toString())
+                .then()
+                .log().ifError()
+                .assertThat()
+                .statusCode(200)
+                .extract()
+                .body().xmlPath().getObject("Envelope.Body.GetListByNameResponse.GetListByNameResult", GetListByNameResult.class);
     }
 }
